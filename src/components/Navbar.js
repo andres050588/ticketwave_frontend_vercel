@@ -31,9 +31,6 @@ export default function AppNavbar() {
                                 <NavDropdown.Item as={Link} to="/orders/purchased" className="text-dark bg-light">
                                     Biglietti Acquistati
                                 </NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/tickets/mytickets" className="text-dark bg-light">
-                                    I miei biglietti in vendita
-                                </NavDropdown.Item>
                             </>
                         )}
                     </NavDropdown>
