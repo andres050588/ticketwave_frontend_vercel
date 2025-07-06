@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa"
+import { FaFacebook, FaInstagram } from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
 
 export default function Footer() {
     return (
@@ -18,7 +19,7 @@ export default function Footer() {
                                 <FaInstagram />
                             </a>
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white fs-5">
-                                <FaTwitter />
+                                <FaXTwitter />
                             </a>
                         </div>
                     </Col>
