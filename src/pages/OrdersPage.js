@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from "react"
-import { Container, Card, Spinner, Alert, Row, Col, Badge, Button } from "react-bootstrap"
+import { Container, Spinner, Alert, Row, Col } from "react-bootstrap"
 import OrderCard from "./OrderCard.js"
 
 import { useAuthRequest } from "../hooks/useAuthRequest.js"
+import orderAPI from "../api/orderAPI.js"
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([])
@@ -15,7 +16,7 @@ export default function OrdersPage() {
     const loadOrders = useCallback(async () => {
         setLoading(true)
         try {
-            const data = await authorizedRequest(`/orders`)
+            const data = await authorizedRequest(`/orders`, "get", {}, orderAPI)
             if (Array.isArray(data)) setOrders(data)
         } catch {
             console.error("Errore nel recupero degli ordini")
@@ -40,11 +41,10 @@ export default function OrdersPage() {
     // complete order
     const handleComplete = async orderId => {
         try {
-            const result = await authorizedRequest(`/orders/${orderId}/complete`, "post")
-
+            const result = await authorizedRequest(`/orders/${orderId}/complete`, "post", {}, orderAPI)
             if (result) {
                 setSuccess("Ordine completato con successo")
-                await loadOrders() // Caricamento ordini dopo aver completato ordine
+                await loadOrders()
             }
         } catch (error) {
             console.error(error.response?.data?.error || "Errore nel completamento ordine")
@@ -54,10 +54,10 @@ export default function OrdersPage() {
     // cancellazione order
     const handleCancel = async orderId => {
         try {
-            const result = await authorizedRequest(`/orders/${orderId}`, "delete")
+            const result = await authorizedRequest(`/orders/${orderId}`, "delete", {}, orderAPI)
             if (result) {
                 setSuccess("Ordine annullato")
-                await loadOrders() // Caricamento ordini dopo aver annullato un ordine
+                await loadOrders()
             }
         } catch (error) {
             console.error(error.response?.data?.error || "Errore nell'annullamento ordine")

@@ -1,16 +1,15 @@
 import { useNavigate } from "react-router-dom"
 import { useCallback, useState } from "react"
 import userAPI from "../api/userAPI.js"
-
 export const useAuthRequest = () => {
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState(null)
 
     const authorizedRequest = useCallback(
-        async (url, method = "get", config = {}) => {
+        async (url, method = "get", config = {}, apiClient = userAPI) => {
             const token = localStorage.getItem("token")
             try {
-                const response = await userAPI({
+                const response = await apiClient({
                     method,
                     url,
                     headers: {
@@ -27,13 +26,9 @@ export const useAuthRequest = () => {
                     if (window.location.pathname !== "/login") {
                         setErrorMessage("Sessione scaduta. Verrai reindirizzato al login.")
                         localStorage.removeItem("token")
-
-                        setTimeout(() => {
-                            navigate("/login")
-                        }, 1500)
+                        setTimeout(() => navigate("/login"), 1500)
                     }
                 } else if (status === 403) {
-                    // L'utente rimane loggato e mostra solo il messaggio
                     setErrorMessage(error.response?.data?.error || "Accesso negato.")
                 } else if (status === 404) {
                     setErrorMessage("Risorsa non trovata.")

@@ -3,6 +3,7 @@ import { Container, Card, Button, Spinner, Alert } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { useAuthRequest } from "../hooks/useAuthRequest.js"
 import { useAuth } from "../utils/AuthContext.js"
+import userAPI from "../api/userAPI.js"
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState(null)
@@ -10,20 +11,19 @@ export default function ProfilePage() {
     const [error, setError] = useState(null)
     const { authorizedRequest, errorMessage } = useAuthRequest()
     const { logout } = useAuth()
-
     const navigate = useNavigate()
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const data = await authorizedRequest("users/profile")
+                const data = await authorizedRequest("users/profile", "get", {}, userAPI)
 
                 if (data) setProfile(data)
             } catch (error) {
                 if (error.response?.status === 404) {
                     setError("Utente non trovato. Probabilmente non esiste nella Data Base")
                     localStorage.removeItem("token")
-                    setTimeout(() => navigate("/register"), 3000) // redirect automatico dopo 3s
+                    setTimeout(() => navigate("/register"), 3000)
                 } else {
                     setError("Errore nel recupero del profilo")
                 }
