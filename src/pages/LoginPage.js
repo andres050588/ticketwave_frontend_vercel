@@ -4,7 +4,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom"
 import { Container, Form, Button, Alert } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { useAuth } from "../utils/AuthContext.js"
-import axios_api from "../api/api.js"
+import userAPI from "../api/userAPI.js"
 
 export default function LoginPage() {
     const navigate = useNavigate()
@@ -30,7 +30,7 @@ export default function LoginPage() {
         }),
         onSubmit: async values => {
             try {
-                const response = await axios_api.post("/users/login", values)
+                const response = await userAPI.post("/users/login", values)
                 localStorage.setItem("token", response.data.token)
                 login(response.data.token)
                 navigate(location.state?.from || "/tickets")

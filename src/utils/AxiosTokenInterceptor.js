@@ -1,7 +1,7 @@
-import axios_api from "../api/api"
+import userAPI from "../api/userAPI"
 
 export const axiosTokenInterceptor = () => {
-    axios_api.interceptors.response.use(
+    userAPI.interceptors.response.use(
         response => response,
         error => {
             const token = localStorage.getItem("token")

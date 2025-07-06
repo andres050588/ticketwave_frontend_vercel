@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Container, Form, Button, Alert } from "react-bootstrap"
 import { useState } from "react"
 import { useAuth } from "../utils/AuthContext.js"
-import axios_api from "../api/api.js"
+import userAPI from "../api/userAPI.js"
 
 export default function RegisterPage() {
     const { login } = useAuth()
@@ -24,7 +24,7 @@ export default function RegisterPage() {
         }),
         onSubmit: async values => {
             try {
-                const response = await axios_api.post("/users/register", values)
+                const response = await userAPI.post("/users/register", values)
                 localStorage.setItem("token", response.data.token)
                 login(response.data.token)
                 navigate("/tickets")

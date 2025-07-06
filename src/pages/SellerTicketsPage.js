@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import axios_api from "../api/api.js"
 import { Container, Row, Col, Spinner, Alert, Card } from "react-bootstrap"
 import TicketCard from "../components/TicketCard.js"
+import ticketAPI from "../api/ticketAPI.js"
 
 export default function SellerTicketsPage() {
     const { userId } = useParams()
@@ -14,7 +14,7 @@ export default function SellerTicketsPage() {
     useEffect(() => {
         const fetchSellerAndTickets = async () => {
             try {
-                const resTickets = await axios_api.get(`/tickets/seller/${userId}`)
+                const resTickets = await ticketAPI.get(`/tickets/seller/${userId}`)
                 setTickets(resTickets.data)
 
                 // Estrai venditore dal primo ticket (se esiste)

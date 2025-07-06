@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { Container, Card, Button, Spinner, Alert } from "react-bootstrap"
 import { useAuth } from "../utils/AuthContext.js"
-import axios_api from "../api/api.js"
+import ticketAPI from "../api/ticketAPI.js"
+import orderAPI from "../api/orderAPI.js"
 
 export default function TicketDetailPage() {
     const { id } = useParams()
@@ -22,7 +23,7 @@ export default function TicketDetailPage() {
         }
         const fetchTicket = async () => {
             try {
-                const response = await axios_api.get(`/tickets/${id}`)
+                const response = await ticketAPI.get(`/tickets/${id}`)
                 setTicket(response.data)
             } catch (error) {
                 setError("Biglietto non trovato")
@@ -45,7 +46,7 @@ export default function TicketDetailPage() {
 
     const handlePurchase = async () => {
         try {
-            await axios_api.post("/orders", { ticketId: ticket.id })
+            await orderAPI.post("/orders", { ticketId: ticket.id })
             setSuccess("Ordine creato! Hai 15 minuti per completare l'acquisto")
             setIsDisabled(true)
             setTimeout(() => navigate("/orders"), 2000)
@@ -59,7 +60,7 @@ export default function TicketDetailPage() {
         if (!window.confirm("Sei sicuro di voler cancellare questo biglietto?")) return
 
         try {
-            await axios_api.delete(`/tickets/${ticket.id}`)
+            await ticketAPI.delete(`/tickets/${ticket.id}`)
             setSuccess("Biglietto cancellato con successo")
             setTimeout(() => navigate("/tickets/mytickets"), 2000)
         } catch (error) {

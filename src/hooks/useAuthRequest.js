@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useCallback, useState } from "react"
-import axios_api from "../api/api.js"
+import userAPI from "../api/userAPI.js"
 
 export const useAuthRequest = () => {
     const navigate = useNavigate()
@@ -10,7 +10,7 @@ export const useAuthRequest = () => {
         async (url, method = "get", config = {}) => {
             const token = localStorage.getItem("token")
             try {
-                const response = await axios_api({
+                const response = await userAPI({
                     method,
                     url,
                     headers: {
