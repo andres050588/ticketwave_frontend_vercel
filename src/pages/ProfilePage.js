@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Container, Card, Button, Spinner, Alert } from "react-bootstrap"
+import { Container, Card, Button, Spinner, Alert, Badge } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { useAuthRequest } from "../hooks/useAuthRequest.js"
 import { useAuth } from "../utils/AuthContext.js"
