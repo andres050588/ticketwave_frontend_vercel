@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuth } from "../utils/AuthContext.js"
 import { useAuthRequest } from "../hooks/useAuthRequest.js"
 import { Upload, CheckCircle } from "react-bootstrap-icons"
+import ticketAPI from "../api/ticketAPI.js"
 
 export default function SellPage() {
     const { user } = useAuth()
@@ -47,9 +48,7 @@ export default function SellPage() {
                 formData.append("eventDate", values.eventDate)
                 formData.append("image", values.image)
 
-                await authorizedRequest("/tickets", "post", {
-                    data: formData
-                })
+                await authorizedRequest("/tickets", "post", { data: formData }, ticketAPI)
 
                 setSuccess("Biglietto pubblicato con successo!")
                 formik.resetForm()
