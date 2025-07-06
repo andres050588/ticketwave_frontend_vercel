@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import TicketCard from "./TicketCard.js"
 import ticketAPI from "../api/ticketAPI.js"
+import orderAPI from "../api/orderAPI.js"
 
 export default function TicketList({ title = "Biglietti", limit = null, showSeeAllButton = false, ticketType = "tickets", apiEndpoint = null }) {
     const [tickets, setTickets] = useState([])
@@ -24,7 +25,8 @@ export default function TicketList({ title = "Biglietti", limit = null, showSeeA
                     }
                 }
 
-                const response = await ticketAPI.get(url)
+                const apiClient = ticketType === "purchased" ? orderAPI : ticketAPI
+                const response = await apiClient.get(url)
                 let allTickets = response.data
 
                 if (!Array.isArray(allTickets)) {
