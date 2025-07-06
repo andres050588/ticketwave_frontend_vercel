@@ -13,6 +13,7 @@ import { AuthProvider } from "./utils/AuthContext.js"
 import PrivacyPage from "./pages/PrivacyPage.js"
 import TermsPage from "./pages/TermsPage.js"
 import MyPurchasedTicketsPage from "./pages/MyPurchasedTicketsPage.js"
+import AdminUserListPage from "./pages/AdminUserListPage.js"
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
             { path: "tickets", element: <TicketsPage /> },
             { path: "orders", element: <OrdersPage /> },
             { path: "orders/purchased", element: <MyPurchasedTicketsPage /> },
+            { path: "admin/users", element: <AdminUserListPage /> },
             { path: "privacy", element: <PrivacyPage /> },
             { path: "terms", element: <TermsPage /> }
         ]

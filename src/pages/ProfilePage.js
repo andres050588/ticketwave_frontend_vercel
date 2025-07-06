@@ -45,7 +45,14 @@ export default function ProfilePage() {
             ) : (
                 <Card>
                     <Card.Body>
-                        <Card.Title>{profile.name}</Card.Title>
+                        <Card.Title>
+                            {profile.name}
+                            {profile.isAdmin && (
+                                <Badge bg="danger" className="ms-2">
+                                    Admin
+                                </Badge>
+                            )}
+                        </Card.Title>
                         <Card.Text>Email: {profile.email}</Card.Text>
                         <Card.Text>
                             Registrato il:{" "}
@@ -54,6 +61,12 @@ export default function ProfilePage() {
                                 timeStyle: "short"
                             })}
                         </Card.Text>
+                        {profile.isAdmin && (
+                            <Button variant="outline-primary" className="mt-2 me-2" onClick={() => navigate("/admin/users")}>
+                                Controlla lista utenti
+                            </Button>
+                        )}
+
                         <Button
                             variant="outline-danger"
                             className="mt-3"
