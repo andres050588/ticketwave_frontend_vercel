@@ -61,9 +61,11 @@ export default function ProfilePage() {
                                 timeStyle: "short"
                             })}
                         </Card.Text>
-                        <Button variant="outline-primary" className="mt-2 me-2" onClick={() => navigate("/admin/users")}>
-                            Controlla lista utenti
-                        </Button>
+                        {profile.isAdmin && (
+                            <Button variant="outline-primary" className="mt-2 me-2" onClick={() => navigate("/admin/users")}>
+                                Controlla lista utenti
+                            </Button>
+                        )}
 
                         <Button
                             variant="outline-danger"
